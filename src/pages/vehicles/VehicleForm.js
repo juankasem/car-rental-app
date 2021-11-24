@@ -1,73 +1,64 @@
-import React, { useState } from 'react'
-import { Grid, Topography, makeStyles } from '@material-ui/core'
-
-const useStyles = makeStyles(theme => ({
-    root: {
-         '& MuiformControl-root': {
-             width : '80%',
-             margin: theme.spacing(1)
-         }
-    }
-})
-)
+import React  from 'react'
+import { Grid } from '@material-ui/core'
+import {Form, useForm } from '../../components/custom-hooks/useForm';
+import Controls from '../../components/controls/Controls';
+import { colorOptions, statusOptions } from '../../services/vehicles/VehicleService';
 
 const initialFieldValues = {
     id : 0,
-    manufacturer: '',
+    plateNo: '',
+    manufacturer: '', 
     model: '',
     productionYear: '',
     engineCapacity: '',
     color: '',
     OperationDate: new Date(),
-    isAvailable : false
+    status : 'available'
 }
 
-const AddVehiclePage = () => {
-   const [values, setValues] = useState(initialFieldValues);
-   const classes = useStyles();
 
-   const handleInputChange = e => {
-        const {name, value} = e.target
-        setValues({
-            ...values,
-            [name]: value
-        })
-   }
+const handleSubmit = () => {
 
-    return (
-        <>
-        <Header />
-        
-        <form className={classes.root}>
+
+     }    
+
+const VehicleForm = () => {
+   const {values, setValues, handleInputChange} = useForm(initialFieldValues);
+
+    return (      
+        <Form onSubmit={handleSubmit}>
             <Grid container>
                 <Grid item xs={6}>
-                    <TextField
-                     variant= "outlined"
+                    <Controls.Input
+                     label="Plaka Numarasi"
+                     placeholder="Plaka numarasi giriniz"
+                     name="plateNo"
+                     value= {values.plateNo}
+                     onChange= {handleInputChange} />
+
+                    <Controls.Input
                      label="Marka"
                      placeholder="Marka adi giriniz"
                      name="manufacturer"
                      value= {values.manufacturer}
                      onChange= {handleInputChange} />
 
-                    <TextField
-                     variant= "outlined"
+                    <Controls.Input
                      label="Model"
                      placeholder="Model adi giriniz"
                      name="model"
                      value= {values.model}
                      onChange= {handleInputChange} />        
                      
-                    <TextField
-                     variant= "outlined"
+                    <Controls.Input
                      label="Uretim Yili"
                      placeholder="Uretim Yili adi giriniz"
                      name="productionYear"
                      value= {values.productionYear}
                      onChange= {handleInputChange}
                       />         
-                     
-                    <TextField
-                     variant= "outlined"
+
+                    <Controls.Input
                      label="Motor Kapasitesi"
                      placeholder="Motor kapasitesi giriniz"
                      name="engineCapacity"
@@ -75,32 +66,32 @@ const AddVehiclePage = () => {
                      onChange= {handleInputChange}/>
                 </Grid>
                 <Grid xs={6}>
-                    <Select
-                     variant="outlined"
+                    <Controls.Select
                      label= "Renk"
                      placeholder="Arac Rengi giriniz"
+                     name="color"
                      value= {values.color}
-                     onChange= {handleInputChange} />  
+                     onChange= {handleInputChange}
+                     options= {colorOptions} />  
                         
-                    <TextField
-                     variant= "outlined"
+                    <Controls.Input
                      label="Calisma baslama Tarihi"
                      placeholder="Calisma baslama giriniz"
                      name="operationDate"
                      value= {values.operationDate} 
                      onChange= {handleInputChange} />      
                      
-                    <RadioGroup
-                     variant= "outlined"
+                    <Controls.Select
                      label="Musaigiti Durumu"
                      placeholder="Musaigiti Durumu giriniz"
+                     name="status"
                      value= {values.isAvailable}
-                     onChange= {handleInputChange} />   
+                     onChange= {handleInputChange}
+                     options={statusOptions} />   
                 </Grid>
             </Grid>
-        </form>
-        </>
+        </Form>
     )
 }
 
-export default AddVehiclePage
+export default VehicleForm
