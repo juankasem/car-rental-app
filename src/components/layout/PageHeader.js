@@ -1,14 +1,19 @@
-import { makeStyles, Paper, Typography } from '@material-ui/core'
 import React from 'react'
+import { makeStyles, Paper, Typography } from '@material-ui/core'
+import { useNavigate } from 'react-router';
+import Controls from '../controls/Controls';
 
 const useStyles = makeStyles(theme =>({
     root: {
         backgroundColor: '#fdfdff'
     },
     pageHeader: {
-        padding: theme.spacing(4),
         display: 'flex',
-        marginBottom: theme.spacing(2)
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: theme.spacing(2),
+        padding: theme.spacing(4),
+
     },
     pageIcon:{
         display:'inline-block',
@@ -20,12 +25,16 @@ const useStyles = makeStyles(theme =>({
         '& .MuiTypography-subtitle2':{
             opacity:'0.6'
         }
+    },
+    pageButton: {
+        display: 'flex'
     }
 }))
 
 const PageHeader = (props) => {
     const classes = useStyles();
-    const {title, subTitle} = props;
+    const {title, subTitle, buttonText, url} = props;
+    const navigate = useNavigate();
 
     return (
         <Paper elevation={0} square className={classes.root}>
@@ -42,6 +51,17 @@ const PageHeader = (props) => {
                         >{subTitle}
                     </Typography> 
                 </div>
+                { url 
+                  ?
+                    <div>
+                        <Controls.Button
+                         text= {buttonText}
+                         onClick={() => navigate(url)} />
+                  </div>
+                   :
+                   null
+                }
+                
             </div>
         </Paper>
     )

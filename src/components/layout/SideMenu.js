@@ -1,10 +1,12 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core'
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles({
     sideMenu: {
      display: 'flex',
      flexDirection: 'column',
+     padding:0,
      position: 'absolute',
      left: 0,
      width: '240px',
@@ -15,11 +17,14 @@ const useStyles = makeStyles({
 
 const SideMenu = () => {
     const classes = useStyles();
-    
+    const navigate = useNavigate();
+
     return (
-        <div className={classes.sideMenu}>
-            
-        </div>
+    <div className={classes.sideMenu}>
+         <button type="button" onClick={() => navigate('/') }>
+           Go home
+        </button>       
+     </div>
     )
 }
 

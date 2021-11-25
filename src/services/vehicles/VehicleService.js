@@ -1,4 +1,4 @@
-export const vehicles = [{
+export const getAllVehicles = () =>  [{
     id : 1,
     plateNo: '342353543',
     manufacturer: 'Toyota', 
@@ -55,14 +55,14 @@ export const vehicles = [{
 },
 ]
 
-export const colorOptions = [{value: "white", title: 'Beyaz'},
+export const getColorOptions = () => [{value: "white", title: 'Beyaz'},
                     {value: "black", title: 'Siyah'},
                     {value: "red", title: 'Kirmizi'},
                     {value: "blue", title: 'Mavi'},
                     {value: "silver", title: 'Gumus'},
                     {value: "green", title: 'Yesil'}]
 
-export const statusOptions = [{value: "available", title: 'Musait'},
+export const getStatusOptions = () => [{value: "available", title: 'Musait'},
                        {value: "reserved", title: 'reservli'},
                        {value: "rented", title: 'Kirali'},
                        {value: "maintenance", title: 'Tamirde'}]

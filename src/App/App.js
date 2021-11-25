@@ -2,12 +2,12 @@ import { createTheme, CssBaseline, makeStyles, MuiThemeProvider } from '@materia
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from '../components/layout/Header';
 import SideMenu from '../components/layout/SideMenu';
-import AddCustomer from '../pages/customers/AddCustomer';
-import CustomerList from '../pages/customers/CustomerList';
 import Home from '../pages/home/Home';
-import AddVehicle from '../pages/vehicles/AddVehicle';
-import VehicleList from '../pages/vehicles/VehicleList';
-import { vehicles } from '../services/vehicles/VehicleService';
+import Vehicles from '../pages/vehicles/Vehicles';
+import Customers from '../pages/customers/Customers';
+import AddOrEditCustomer from '../pages/customers/AddOrEditCustomer';
+import AddOrEditVehicle from '../pages/vehicles/AddOrEditVehicle';
+
 import './App.css';
 
 const theme = createTheme({
@@ -29,7 +29,7 @@ const theme = createTheme({
   },
   props: {
     MuiIconButton: {
-      disablePipple: true
+      disableRipple: true
     }
   }
 })
@@ -45,21 +45,21 @@ function App() {
   const classes = useStyles();
   return (
     <MuiThemeProvider theme={theme}>
+    <Router>
+    <Header />
     <SideMenu />
     <div className={classes.appMain}>
-     <Header />
-     <Router>
        <Routes>
         <Route path='/' element={<Home />} exact />
-        <Route path='/vehicles' element={<VehicleList vehicles={vehicles}/>} exact />
-        <Route path='/vehicles/new' element={<AddVehicle/>}/>
-        <Route path='/vehicles/edit/:id' element={<AddVehicle />} />
-        <Route path='/customers' element={<CustomerList/>} exact />
-        <Route path='/customers/new' element={<AddCustomer/>}  />
-        <Route path='/customers/edit?:id' element={<AddCustomer/>} />
+        <Route path='/vehicles' element={<Vehicles />} exact />
+        <Route path='/vehicles/new' element={<AddOrEditVehicle />}/>
+        <Route path='/vehicles/edit/:id' element={<AddOrEditVehicle />} />
+        <Route path='/customers' element={<Customers />} exact />
+        <Route path='/customers/new' element={<AddOrEditCustomer />}  />
+        <Route path='/customers/edit/:id' element={<AddOrEditCustomer />} />
        </Routes>
-      </Router>
       </div>
+      </Router>
      <CssBaseline />
     </MuiThemeProvider>
   );

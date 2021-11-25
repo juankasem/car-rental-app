@@ -1,17 +1,27 @@
 import React from 'react'
+import { makeStyles } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 
+const useStyles = makeStyles(theme => ({
+    links: {
+        display: 'flex',
+        margin: theme.spacing(3)
+
+    },
+    link: {
+        textDecoration: 'none',
+        marginRight: theme.spacing(3)
+    }
+})
+)
+
 const Home = () => {
+    const classes = useStyles()
     return (
-        <>
-        <div>
-            This is home page
+        <div className={classes.links}>      
+         <Link to='/customers' className={classes.link}>All Customers</Link>
+         <Link to='/vehicles' className={classes.link}>All Vehicles</Link>
         </div>
-        <div>      
-         <Link to='/customers'>All Customers</Link>
-         <Link to='/vehicles'>All Vehicles</Link>
-        </div>
-        </>
     )
 }
 

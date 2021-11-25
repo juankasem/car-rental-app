@@ -3,7 +3,7 @@ import React from 'react'
 import PageHeader from '../../components/layout/PageHeader'
 import VehicleForm from './VehicleForm'
 
-const AddVehicle = () => {
+const AddOrEditVehicle = () => {
     return (
         <>
         <PageHeader title="Arac" subTitle="Yeni Arac forma" />
@@ -14,4 +14,4 @@ const AddVehicle = () => {
     )
 }
 
-export default AddVehicle
+export default AddOrEditVehicle

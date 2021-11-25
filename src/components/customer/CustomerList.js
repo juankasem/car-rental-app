@@ -1,6 +1,6 @@
 import { Paper } from '@material-ui/core'
 import React from 'react'
-import Customer from '../../components/customer/Customer'
+import Customer from './Customer'
 
 const CustomerList = ({customers}) => {
 
@@ -11,7 +11,7 @@ const CustomerList = ({customers}) => {
                  customers.map(customer => (
                     <Customer key={customer.id} customer={customer} />
                  )) :
-                 <div>No customers found</div>  
+                 <div>Müşteri bulunamadı</div>  
                  }
             </div>
         </Paper>

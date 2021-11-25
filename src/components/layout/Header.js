@@ -1,9 +1,12 @@
 import React from 'react'
-import { AppBar, Grid, InputBase, makeStyles, Toolbar } from '@material-ui/core'
+import { AppBar, Grid, Typography, InputBase, makeStyles, Toolbar } from '@material-ui/core'
 
 const useStyles = makeStyles({
      root: {
      backgroundColor: '#fff'
+    },
+    title: {
+     color: '#000'
     },
     searchInput: {
         opacity: '0.6',
@@ -24,13 +27,18 @@ const Header = () => {
     return (
        <AppBar position="static" className={classes.root}>
            <Toolbar>
-             <Grid container>
-                <Grid item sm={6} >
+             <Grid container>       
+                <Grid item >
                     <InputBase className={classes.searchInput}
                     placeholder="Search vehicles"
                     />
-                </Grid> 
-                <Grid item sm={6}  >
+                </Grid>   
+                <Grid sm={6}>
+                    <Typography className={classes.title} variant='h4' >
+                     Araç Kiralama Sistemi
+                     </Typography>
+                   </Grid>       
+                <Grid item>
                 </Grid> 
              </Grid>    
            </Toolbar>

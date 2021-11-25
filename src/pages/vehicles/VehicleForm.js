@@ -2,7 +2,7 @@ import React  from 'react'
 import { Grid } from '@material-ui/core'
 import {Form, useForm } from '../../components/custom-hooks/useForm';
 import Controls from '../../components/controls/Controls';
-import { colorOptions, statusOptions } from '../../services/vehicles/VehicleService';
+import { getColorOptions } from '../../services/vehicles/VehicleService';
 
 const initialFieldValues = {
     id : 0,
@@ -12,13 +12,15 @@ const initialFieldValues = {
     productionYear: '',
     engineCapacity: '',
     color: '',
-    OperationDate: new Date(),
-    status : 'available'
+    OperationDate: new Date()
 }
 
+const resetForm = () => {
 
-const handleSubmit = () => {
+}
 
+const handleSubmit = (e) => {
+   e.preventDefault()
 
      }    
 
@@ -72,23 +74,26 @@ const VehicleForm = () => {
                      name="color"
                      value= {values.color}
                      onChange= {handleInputChange}
-                     options= {colorOptions} />  
+                     options= {getColorOptions()} />  
                         
-                    <Controls.Input
+                    <Controls.DatePicker
                      label="Calisma baslama Tarihi"
                      placeholder="Calisma baslama giriniz"
                      name="operationDate"
                      value= {values.operationDate} 
-                     onChange= {handleInputChange} />      
-                     
-                    <Controls.Select
-                     label="Musaigiti Durumu"
-                     placeholder="Musaigiti Durumu giriniz"
-                     name="status"
-                     value= {values.isAvailable}
-                     onChange= {handleInputChange}
-                     options={statusOptions} />   
+                     onChange= {handleInputChange} />        
                 </Grid>
+                   <div>
+                        <Controls.Button
+                         type="submit"
+                         text= "Submit" />
+
+                        <Controls.Button
+                         text= "Reset"
+                         color="default"
+                         onClick={resetForm}
+                         />               
+                    </div> 
             </Grid>
         </Form>
     )
