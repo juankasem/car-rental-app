@@ -1,8 +1,7 @@
 import React, { useState, useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom";
-import { Paper } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+import { Paper, makeStyles } from '@material-ui/core';
 import PageHeader from '../../components/layout/PageHeader';
 import CustomerForm from './CustomerForm';
 import { useParams } from 'react-router';
@@ -17,8 +16,7 @@ const useStyles = makeStyles(theme => ({
 )
 
 const getSubTitle = (editMode = false) =>
-  !editMode ? "Yeni Musteri Ekle" : "Mevcut Musteri Guncelleme"
-
+  !editMode ? "Yeni Müşteri Ekle" : "Mevcut Müşteri Güncelleme"
 
 
 const AddOrEditCustomer = () => {
@@ -31,8 +29,10 @@ const AddOrEditCustomer = () => {
     const navigate = useNavigate();
 
     const postCustomer = (customer, resetForm) => {
-       if (customer.id === 0)
+       if (customer.id === 0){
+         customer.id = customers.length + 1
          dispatch(addCustomer(customer))
+       }
          else
          dispatch(updateCustomer(customer))
 
@@ -41,18 +41,16 @@ const AddOrEditCustomer = () => {
     }
     
     useEffect(() => {
-        console.log('params:', params)
         if (params.id){
             setEditMode(true)
-            const customer = customers.find(customer => customer.id === params?.id)
-            console.log('customer:', customer)
+            const customer = customers.find(customer => customer.id === +params.id)
             setCustomer(customer)
         }
-    }, [])
+    }, [customers, params])
 
     return (
         <>
-        <PageHeader title="Musteriler"
+        <PageHeader title="Müşteriler"
          subTitle={getSubTitle(editMode)} />
         <Paper className={classes.pageContent}>
           <CustomerForm customer={customer} postCustomer= {postCustomer} />

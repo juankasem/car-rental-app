@@ -1,8 +1,8 @@
-import React  from 'react'
+import React, {useEffect}  from 'react'
 import { Grid } from '@material-ui/core'
 import {Form, useForm } from '../../components/custom-hooks/useForm';
 import Controls from '../../components/controls/Controls';
-import { getColorOptions } from '../../services/vehicles/VehicleService';
+import { getEngineCapacityOptions, getColorOptions } from '../../services/vehicles/VehicleService';
 
 const initialFieldValues = {
     id : 0,
@@ -12,85 +12,127 @@ const initialFieldValues = {
     productionYear: '',
     engineCapacity: '',
     color: '',
-    OperationDate: new Date()
+    OperationDate: new Date(),
+    costPerHour: 1
 }
 
-const resetForm = () => {
 
-}
+const VehicleForm = (props) => {
+    const {vehicle, postVehicle} = props
 
-const handleSubmit = (e) => {
-   e.preventDefault()
+    const validate = (fieldValues = values) => {
+        let temp = { ...errors }
+            if ('plateNo' in fieldValues)
+            temp.plateNo = fieldValues.plateNo ? "" : "Bu alan gereklidir."
+            if ('manufacturer' in fieldValues)
+            temp.manufacturer = fieldValues.manufacturer ? "" : "Bu alan gereklidir."
+            if ('model' in fieldValues)
+            temp.model = fieldValues.model ? "" : "Bu alan gereklidir."
+            if ('productionYear' in fieldValues)
+            temp.productionYear = fieldValues.productionYear ? "" : "Bu alan gereklidir."
+       
+        setErrors({
+            ...temp
+        })
+    
+        if (fieldValues === values)
+            return Object.values(temp).every(x => x === "")
+        }
+    
+    const {values, setValues, handleInputChange,
+           resetForm, errors, setErrors} = useForm(initialFieldValues, true, validate);
+    
+    useEffect(() => {
+    if (vehicle){
+        setValues({...vehicle})
+    }
+    }, [vehicle, setValues])
 
-     }    
+    const handleSubmit = (e) => {
+        e.preventDefault()
 
-const VehicleForm = () => {
-   const {values, setValues, handleInputChange} = useForm(initialFieldValues);
+        if (validate()){
+            postVehicle(values, resetForm)
+        }
+    } 
 
     return (      
         <Form onSubmit={handleSubmit}>
             <Grid container>
                 <Grid item xs={6}>
                     <Controls.Input
-                     label="Plaka Numarasi"
-                     placeholder="Plaka numarasi giriniz"
+                     label="Plaka Numarası"
+                     placeholder="Plaka numarası giriniz"
                      name="plateNo"
                      value= {values.plateNo}
-                     onChange= {handleInputChange} />
+                     onChange= {handleInputChange}
+                     error={errors.plateNo} />
 
                     <Controls.Input
                      label="Marka"
-                     placeholder="Marka adi giriniz"
+                     placeholder="Marka adı giriniz"
                      name="manufacturer"
                      value= {values.manufacturer}
-                     onChange= {handleInputChange} />
+                     onChange= {handleInputChange}
+                     error={errors.manufacturer} />
 
                     <Controls.Input
                      label="Model"
                      placeholder="Model adi giriniz"
                      name="model"
                      value= {values.model}
-                     onChange= {handleInputChange} />        
+                     onChange= {handleInputChange}
+                     error={errors.model} />        
                      
                     <Controls.Input
-                     label="Uretim Yili"
-                     placeholder="Uretim Yili adi giriniz"
+                     label="Üretim Yılı"
+                     placeholder="Üretim Yılı adı giriniz"
                      name="productionYear"
                      value= {values.productionYear}
                      onChange= {handleInputChange}
-                      />         
-
-                    <Controls.Input
+                     error={errors.productionYear} />         
+                </Grid>
+                <Grid xs={6}>
+                    <Controls.Select
                      label="Motor Kapasitesi"
                      placeholder="Motor kapasitesi giriniz"
                      name="engineCapacity"
                      value= {values.engineCapacity} 
-                     onChange= {handleInputChange}/>
-                </Grid>
-                <Grid xs={6}>
+                     onChange= {handleInputChange}
+                     options= {getEngineCapacityOptions()} />
+
                     <Controls.Select
                      label= "Renk"
-                     placeholder="Arac Rengi giriniz"
+                     placeholder="Araç Rengi giriniz"
                      name="color"
                      value= {values.color}
                      onChange= {handleInputChange}
                      options= {getColorOptions()} />  
                         
-                    <Controls.DatePicker
-                     label="Calisma baslama Tarihi"
-                     placeholder="Calisma baslama giriniz"
+                     <Controls.DatePicker
+                     label="Calışma başlama Tarihi"
+                     placeholder="Calışma başlama giriniz"
                      name="operationDate"
                      value= {values.operationDate} 
-                     onChange= {handleInputChange} />        
+                     onChange= {handleInputChange} />  
+
+                    <Controls.Input
+                    label="Saat ücreti (TL)"
+                    type="number"
+                    inputProps={{ min: 1 }}
+                    placeholder="Saat ücreti adı giriniz"
+                    name="costPerHour"
+                    value= {values.costPerHour}
+                    onChange= {handleInputChange} />    
                 </Grid>
-                   <div>
+                   <div style={{margin: 'auto'}}>
                         <Controls.Button
                          type="submit"
-                         text= "Submit" />
+                         color="primary"
+                         text= "Tamam" />
 
                         <Controls.Button
-                         text= "Reset"
-                         color="default"
+                         text= "Sıfırla"
                          onClick={resetForm}
                          />               
                     </div> 

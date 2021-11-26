@@ -6,7 +6,7 @@ const CustomerList = ({customers}) => {
 
     return (
         <Paper elevation={0} square>
-            <div>
+            <div style={{  display: 'flex', justifyContent: 'space-between' }}>
                 {(customers && customers.length) ? 
                  customers.map(customer => (
                     <Customer key={customer.id} customer={customer} />

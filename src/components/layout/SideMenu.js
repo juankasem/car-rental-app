@@ -1,12 +1,13 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core'
 import { useNavigate } from "react-router-dom";
+import Controls from '../controls/Controls';
 
 const useStyles = makeStyles({
     sideMenu: {
      display: 'flex',
      flexDirection: 'column',
-     padding:0,
+     paddingTop:"50px",
      position: 'absolute',
      left: 0,
      width: '240px',
@@ -21,9 +22,26 @@ const SideMenu = () => {
 
     return (
     <div className={classes.sideMenu}>
-         <button type="button" onClick={() => navigate('/') }>
-           Go home
-        </button>       
+         <Controls.Button
+          text="Ana Sayfa"
+          onClick={() => navigate('/') }>
+        </Controls.Button>  
+        <Controls.Button
+          text="Tüm Müşteriler"
+          onClick={() => navigate('/customers') }>
+        </Controls.Button>  
+        <Controls.Button
+          text="Yeni Müşteri Ekle"
+          onClick={() => navigate('/customers/new') }>
+        </Controls.Button> 
+        <Controls.Button
+          text="Tüm Araçlar"
+          onClick={() => navigate('/vehicles') }>
+        </Controls.Button>  
+        <Controls.Button
+          text="Yeni Araç Ekle"
+          onClick={() => navigate('/vehicles/new') }>
+        </Controls.Button>      
      </div>
     )
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import { makeStyles, Paper, Typography } from '@material-ui/core'
 import { useNavigate } from 'react-router';
 import Controls from '../controls/Controls';
+import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles(theme =>({
     root: {
@@ -56,6 +57,7 @@ const PageHeader = (props) => {
                     <div>
                         <Controls.Button
                          text= {buttonText}
+                         startIcon={<AddIcon />}
                          onClick={() => navigate(url)} />
                   </div>
                    :

@@ -1,9 +1,6 @@
 import { actionTypes } from "../actionTypes"
 
-export const getAllVehicles = () =>  
-({ type: actionTypes.GET_VEHICLES })
-
-export const addvehicle = (vehicle) => (
+export const addVehicle = (vehicle) => (
  { type: actionTypes.ADD_VEHICLE,
    payload: vehicle
  }
@@ -15,7 +12,7 @@ export const updateVehicle = (vehicle) => (
     }
 ) 
 
-export const deletevehicle = (id) =>(  
+export const deleteVehicle = (id) =>(  
 { type: actionTypes.DELETE_VEHICLE,
   payload: id 
 })

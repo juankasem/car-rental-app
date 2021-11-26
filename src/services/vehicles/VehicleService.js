@@ -5,9 +5,9 @@ export const getAllVehicles = () =>  [{
     model: 'Land Cruiser',
     productionYear: '2014',
     engineCapacity: '1000cc',
-    color: 'white',
+    color: 'Beyaz',
     OperationDate: new Date(),
-    status : 'available'
+    costPerHour: 8
 },
 {
     id : 2,
@@ -16,9 +16,9 @@ export const getAllVehicles = () =>  [{
     model: 'Accord',
     productionYear: '2012',
     engineCapacity: '750cc',
-    color: 'silver',
+    color: 'Gümüş',
     OperationDate: new Date(),
-    status : 'booked'
+    costPerHour: 7
 },
 {
     id : 3,
@@ -27,9 +27,9 @@ export const getAllVehicles = () =>  [{
     model: 'Qaashqai',
     productionYear: '2018',
     engineCapacity: '850cc',
-    color: 'red',
+    color: 'Kırmızı',
     OperationDate: new Date(),
-    status : 'rented'
+    costPerHour: 5
 },
 {
     id : 4,
@@ -38,9 +38,9 @@ export const getAllVehicles = () =>  [{
     model: 'Aventador',
     productionYear: '2019',
     engineCapacity: '150cc',
-    color: 'black',
+    color: 'Siyah',
     OperationDate: new Date(),
-    status : 'available'
+    costPerHour: 18
 },
 {
     id : 5,
@@ -49,18 +49,26 @@ export const getAllVehicles = () =>  [{
     model: 'S350',
     productionYear: '2020',
     engineCapacity: '500cc',
-    color: 'blue',
+    color: 'Mavi',
     OperationDate: new Date(),
-    status : 'available'
+    costPerHour: 13
 },
 ]
 
-export const getColorOptions = () => [{value: "white", title: 'Beyaz'},
-                    {value: "black", title: 'Siyah'},
-                    {value: "red", title: 'Kirmizi'},
+export const getColorOptions = () =>
+                   [{value: "Beyaz", title: 'Beyaz'},
+                    {value: "Siyah", title: 'Siyah'},
+                    {value: "Kırmızı", title: 'Kırmızı'},
                     {value: "blue", title: 'Mavi'},
-                    {value: "silver", title: 'Gumus'},
-                    {value: "green", title: 'Yesil'}]
+                    {value: "Gümüş", title: 'Gümüş'},
+                    {value: "Yeşil", title: 'Yeşil'}]
+
+export const getEngineCapacityOptions = () =>
+                    [{value: "500cc", title: '500cc'},
+                    {value: "750cc", title: '750cc'},
+                    {value: "1000cc", title: '1000cc'},
+                    {value: "1250cc", title: '1250cc'},
+                    {value: "1500cc", title: '1500cc'}]
 
 export const getStatusOptions = () => [{value: "available", title: 'Musait'},
                        {value: "reserved", title: 'reservli'},

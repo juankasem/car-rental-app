@@ -13,13 +13,17 @@ const useStyles = makeStyles({
 const Vehicles = () => {
     const classes = useStyles()
     const {vehicles} = useSelector(state => state.vehicles)
-
+    
     return (
         <>
-        <PageHeader title="Araçlar" subTitle="Tüm Araçlar" />
+        <PageHeader title="Araçlar" 
+                    subTitle="Tüm Araçlar"
+                    buttonText="Yeni Araç Ekle"
+                    url="/vehicles/new"  />
         <Paper className={classes.vehicles}>
           <VehicleList vehicles={vehicles} />
         </Paper>
+       
         </>
     )
 }

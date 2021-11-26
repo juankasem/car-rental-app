@@ -10,28 +10,23 @@ const initialState = {
 const vehiclesReducer = (state = initialState, action ) => {
 
         switch(action.type) {
-            case actionTypes.GET_VEHICLES:
-            return{
-                ...state
-            }
-
             case actionTypes.ADD_VEHICLE:
                 return{
-                    vehicles: [...state.vehicles, action.vehicle]
+                    vehicles: [...state.vehicles, action.payload]
                 }
 
             case actionTypes.UPDATE_VEHICLE:
                 return{
                     vehicles: state.vehicles.map(vehicle => 
-                        vehicle.id === action.vehicle.id ? 
-                         action.vehicle : vehicle
+                        vehicle.id === action.payload.id ? 
+                         action.payload : vehicle
                         )
                 }
 
             case actionTypes.DELETE_VEHICLE:
                 return{
                     vehicles: state.vehicles.filter(vehicle => 
-                        vehicle.id !== action.vehicle.id)             
+                        vehicle.id !== action.payload.id)             
                  }
 
             default:

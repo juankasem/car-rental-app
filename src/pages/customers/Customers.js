@@ -18,7 +18,7 @@ const Customers = () => {
         <>
         <PageHeader title="Müşteriler"
                     subTitle="Tüm Müşteriler"
-                    buttonText="Musteri Ekle"
+                    buttonText="Yeni Müşteri Ekle"
                     url="/customers/new" />
                     
         <Paper className={classes.customers}>

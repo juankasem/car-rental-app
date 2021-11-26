@@ -46,9 +46,9 @@ function App() {
   return (
     <MuiThemeProvider theme={theme}>
     <Router>
-    <Header />
     <SideMenu />
     <div className={classes.appMain}>
+     <Header />
        <Routes>
         <Route path='/' element={<Home />} exact />
         <Route path='/vehicles' element={<Vehicles />} exact />
