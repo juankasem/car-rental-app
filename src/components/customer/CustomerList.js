@@ -2,14 +2,17 @@ import { Paper } from '@material-ui/core'
 import React from 'react'
 import Customer from './Customer'
 
-const CustomerList = ({customers}) => {
+const CustomerList = ({customers, onEdit, onClickDelete}) => {
 
     return (
         <Paper elevation={0} square>
             <div style={{  display: 'flex', justifyContent: 'space-between' }}>
                 {(customers && customers.length) ? 
                  customers.map(customer => (
-                    <Customer key={customer.id} customer={customer} />
+                    <Customer key={customer.id}
+                              customer={customer}
+                              onEdit= {onEdit}
+                              onClickDelete= {onClickDelete} />
                  )) :
                  <div>Müşteri bulunamadı</div>  
                  }

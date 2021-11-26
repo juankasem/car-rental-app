@@ -26,7 +26,7 @@ const customersReducer = (state = initialState, action ) => {
         case actionTypes.DELETE_CUSTOMER:
             return{
                 customers: state.customers.filter(customer => 
-                    customer.id !== action.payload.id)
+                    customer.id !== action.payload)
              }
 
         default:
