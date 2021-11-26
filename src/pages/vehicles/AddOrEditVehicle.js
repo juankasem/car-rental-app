@@ -6,6 +6,7 @@ import PageHeader from '../../components/layout/PageHeader'
 import VehicleForm from './VehicleForm'
 import { useParams } from 'react-router';
 import { addVehicle, updateVehicle } from '../../store/actions/vehicles'
+import Notification from '../../components/layout/Notification';
 
 const useStyles = makeStyles(theme => ({
     pageContent: {
@@ -26,14 +27,26 @@ const AddOrEditVehicle = () => {
     const params = useParams()
     const  dispatch = useDispatch();
     const navigate = useNavigate();
+    const [notify, setNotify] = useState({ isOpen: false, message: '', type: ''});
 
     const postVehicle = (vehicle, resetForm) => {
         if (vehicle.id === 0){
             vehicle.id = vehicles.length + 1
             dispatch(addVehicle(vehicle))
+            setNotify({
+                isOpen: true,
+                message: 'Başarılı ekledi',
+                type: 'success'
+              })
         }
-          else
-          dispatch(updateVehicle(vehicle))
+          else {
+            dispatch(updateVehicle(vehicle))
+            setNotify({
+                isOpen: true,
+                message: 'Başarılı güncelledi',
+                type: 'success'
+              })
+          }
  
          resetForm()
          navigate('/vehicles')
@@ -54,6 +67,7 @@ const AddOrEditVehicle = () => {
         <Paper className={classes.pageContent}>
          <VehicleForm vehicle={vehicle} postVehicle={postVehicle} />
         </Paper>
+        <Notification notify={notify} setNotify={setNotify} />
         </>
     )
 }

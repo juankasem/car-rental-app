@@ -6,6 +6,7 @@ import PageHeader from '../../components/layout/PageHeader';
 import CustomerForm from './CustomerForm';
 import { useParams } from 'react-router';
 import { addCustomer, updateCustomer } from '../../store/actions/customers';
+import Notification from '../../components/layout/Notification';
 
 const useStyles = makeStyles(theme => ({
     pageContent: {
@@ -27,14 +28,26 @@ const AddOrEditCustomer = () => {
     const params = useParams()
     const  dispatch = useDispatch();
     const navigate = useNavigate();
+    const [notify, setNotify] = useState({ isOpen: false, message: '', type: ''});
 
     const postCustomer = (customer, resetForm) => {
        if (customer.id === 0){
          customer.id = customers.length + 1
          dispatch(addCustomer(customer))
+         setNotify({
+           isOpen: true,
+           message: 'Başarılı ekledi',
+           type: 'success'
+         })
        }
-         else
-         dispatch(updateCustomer(customer))
+         else {
+          dispatch(updateCustomer(customer))
+          setNotify({
+            isOpen: true,
+            message: 'Başarılı güncelledi',
+            type: 'success'
+          })
+         }
 
         resetForm()
         navigate('/customers')
@@ -55,6 +68,7 @@ const AddOrEditCustomer = () => {
         <Paper className={classes.pageContent}>
           <CustomerForm customer={customer} postCustomer= {postCustomer} />
         </Paper>
+        <Notification notify={notify} setNotify={setNotify} />
         </>
     )
 }

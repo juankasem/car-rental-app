@@ -20,10 +20,10 @@ const Popup = (props) => {
             <DialogTitle>
                 <div className={classes.dialogTitle} >
                 <Typography
-            variant="h6"
-            component="div"
-            > {title}
-            </Typography>
+                    variant="h6"
+                    component="div"
+                    > {title}
+                 </Typography>
             <Controls.ActionButton
               text="X"
               color="secondary"
@@ -31,7 +31,6 @@ const Popup = (props) => {
             >
             </Controls.ActionButton>
                 </div>
-             
             </DialogTitle>
             <DialogContent dividers>
                {children}

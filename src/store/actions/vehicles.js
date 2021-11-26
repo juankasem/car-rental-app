@@ -7,12 +7,13 @@ export const addVehicle = (vehicle) => (
 )
 
 export const updateVehicle = (vehicle) => (
-    { type: actionTypes.UPDATE_VEHICLE,
-      payload: vehicle
-    }
+  { type: actionTypes.UPDATE_VEHICLE,
+    payload: vehicle
+  }
 ) 
 
-export const deleteVehicle = (id) =>(  
-{ type: actionTypes.DELETE_VEHICLE,
-  payload: id 
-})
+export const deleteVehicle = (id) => (  
+  { type: actionTypes.DELETE_VEHICLE,
+    payload: id 
+  }
+)

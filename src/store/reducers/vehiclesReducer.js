@@ -26,7 +26,7 @@ const vehiclesReducer = (state = initialState, action ) => {
             case actionTypes.DELETE_VEHICLE:
                 return{
                     vehicles: state.vehicles.filter(vehicle => 
-                        vehicle.id !== action.payload.id)             
+                        vehicle.id !== action.payload)             
                  }
 
             default:
