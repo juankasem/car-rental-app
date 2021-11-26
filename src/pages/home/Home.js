@@ -21,6 +21,7 @@ const Home = () => {
         <div className={classes.links}>      
          <Link to='/customers' className={classes.link}>All Customers</Link>
          <Link to='/vehicles' className={classes.link}>All Vehicles</Link>
+         <Link to='/vehicle-rentals' className={classes.link}>All Vehicle Rentals</Link>
         </div>
     )
 }

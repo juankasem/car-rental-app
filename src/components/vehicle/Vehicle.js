@@ -4,17 +4,15 @@ import Controls from '../controls/Controls';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import CloseIcon from '@material-ui/icons/Close';
 
-
-
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme =>({
     customer: {
-        margin: '1rem',
-      padding: '1rem'
+      margin: theme.spacing(1),
+      padding: theme.spacing(1)
     },
     buttons: {
         display: 'flex'
     }
-  })
+  }))
 
 const Vehicle = ({vehicle, onEdit, onClickDelete}) => {
     const classes = useStyles();

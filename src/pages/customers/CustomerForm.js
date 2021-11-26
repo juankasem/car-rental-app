@@ -20,8 +20,6 @@ const genderOptions = [{value: 'Erkek', title: 'Erkek'},
 
 const CustomerForm = (props) => {
    const {customer, postCustomer} = props
-     
-
 
    const validate = (fieldValues = values) => {
     let temp = { ...errors }

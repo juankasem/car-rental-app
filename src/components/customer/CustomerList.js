@@ -6,7 +6,7 @@ const CustomerList = ({customers, onEdit, onClickDelete}) => {
 
     return (
         <Paper elevation={0} square>
-            <div style={{  display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{  display: 'flex' }}>
                 {(customers && customers.length) ? 
                  customers.map(customer => (
                     <Customer key={customer.id}

@@ -41,7 +41,15 @@ const SideMenu = () => {
         <Controls.Button
           text="Yeni Araç Ekle"
           onClick={() => navigate('/vehicles/new') }>
-        </Controls.Button>      
+        </Controls.Button>   
+        <Controls.Button
+          text="Tüm Kiralar Araç "
+          onClick={() => navigate('/vehicle-rentals') }>
+        </Controls.Button>
+        <Controls.Button
+          text="Kira Araç Ekle"
+          onClick={() => navigate('/vehicle-rentals/new') }>
+        </Controls.Button>     
      </div>
     )
 }

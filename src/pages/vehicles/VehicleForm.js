@@ -12,7 +12,7 @@ const initialFieldValues = {
     productionYear: '',
     engineCapacity: '',
     color: '',
-    OperationDate: new Date(),
+    operationDate: new Date(),
     costPerHour: 1
 }
 

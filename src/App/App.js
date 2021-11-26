@@ -9,6 +9,8 @@ import AddOrEditCustomer from '../pages/customers/AddOrEditCustomer';
 import AddOrEditVehicle from '../pages/vehicles/AddOrEditVehicle';
 
 import './App.css';
+import VehicleRentals from '../pages/rentals/VehicleRentals';
+import AddVehicleRental from '../pages/rentals/AddVehicleRental';
 
 const theme = createTheme({
   palette: {
@@ -57,6 +59,8 @@ function App() {
         <Route path='/customers' element={<Customers />} exact />
         <Route path='/customers/new' element={<AddOrEditCustomer />}  />
         <Route path='/customers/edit/:id' element={<AddOrEditCustomer />} />
+        <Route path='/vehicle-rentals' element={<VehicleRentals />} exact />
+        <Route path='/vehicle-rentals/new' element={<AddVehicleRental />}  />
        </Routes>
       </div>
       </Router>
