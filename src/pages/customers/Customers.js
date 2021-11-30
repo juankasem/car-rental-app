@@ -70,7 +70,7 @@ const Customers = () => {
                     buttonText="Yeni Müşteri Ekle"
                     url="/customers/new" />
                     
-        <Paper className={classes.customers}>
+        <Paper elevatio={0} square className={classes.customers}>
          <CustomerList  customers={customers}
                         onEdit={openPopupToEdit}
                         onClickDelete={showConfirmDialog} />

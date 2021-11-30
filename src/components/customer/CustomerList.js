@@ -5,8 +5,7 @@ import Customer from './Customer'
 const CustomerList = ({customers, onEdit, onClickDelete}) => {
 
     return (
-        <Paper elevation={0} square>
-            <div style={{  display: 'flex' }}>
+            <div style={{width: '100%', display: 'flex' }}>
                 {(customers && customers.length) ? 
                  customers.map(customer => (
                     <Customer key={customer.id}
@@ -17,7 +16,6 @@ const CustomerList = ({customers, onEdit, onClickDelete}) => {
                  <div>Müşteri bulunamadı</div>  
                  }
             </div>
-        </Paper>
     )
 }
 

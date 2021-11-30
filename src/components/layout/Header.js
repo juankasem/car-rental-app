@@ -33,7 +33,7 @@ const Header = () => {
                     placeholder="Search vehicles"
                     />
                 </Grid>   
-                <Grid sm={6}>
+                <Grid item sm={6}>
                     <Typography className={classes.title} variant='h4' >
                      Araç Kiralama Sistemi
                      </Typography>

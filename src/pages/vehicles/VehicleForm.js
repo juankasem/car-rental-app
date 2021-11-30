@@ -92,7 +92,7 @@ const VehicleForm = (props) => {
                      onChange= {handleInputChange}
                      error={errors.productionYear} />         
                 </Grid>
-                <Grid xs={6}>
+                <Grid item xs={6}>
                     <Controls.Select
                      label="Motor Kapasitesi"
                      placeholder="Motor kapasitesi giriniz"

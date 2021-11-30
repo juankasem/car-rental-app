@@ -4,11 +4,10 @@ import { Grid } from '@material-ui/core'
 import {Form, useForm } from '../../components/custom-hooks/useForm';
 import Controls from '../../components/controls/Controls';
 
-
 const initialFieldValues = {
     id : 0,
-    customerId: 0,
-    vehicleId: 0, 
+    customerId: '',
+    vehicleId: '', 
     startDate: new Date(),
     endDate: new Date(),
     totalCost: 1
@@ -19,14 +18,14 @@ const VehicleRentalForm = (props) => {
     const {customers} = useSelector(state => state.customers)
     const {vehicles} = useSelector(state => state.vehicles)
 
-    const customerFullNames = customers.map(customer => 
-                             ({value: customer.id, 
-                               title: customer.fullName})) 
-        
     const plateNos = vehicles.map(vehicle => 
                         ({value: vehicle.id,
                           title: vehicle.plateNo + ` (${vehicle.manufacturer} ${vehicle.model})`}))
-        
+
+    const customerFullNames = customers.map(customer => 
+    ({value: customer.id, 
+        title: customer.fullName})) 
+
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
             if ('customerId' in fieldValues)
@@ -35,8 +34,11 @@ const VehicleRentalForm = (props) => {
             temp.vehicleId = fieldValues.vehicleId ? "" : "Bu alan gereklidir."
             if ('startDate' in fieldValues)
             temp.startDate = fieldValues.startDate ? "" : "Bu alan gereklidir."
-            if ('endDate' in fieldValues)
-            temp.endDate = fieldValues.endDate ? "" : "Bu alan gereklidir."
+            if ('endDate' in fieldValues) {
+                temp.endDate = fieldValues.endDate ? "" : "Bu alan gereklidir."
+                if (fieldValues.endDate < fieldValues.startDate)
+                temp.endDate = "bitiş tarihi, başlangıç tarihinden küçük olamaz"
+            }
        
         setErrors({
             ...temp
@@ -45,16 +47,45 @@ const VehicleRentalForm = (props) => {
         if (fieldValues === values)
             return Object.values(temp).every(x => x === "")
         }
-    
-        const {values, setValues, handleInputChange,
-           resetForm, errors, setErrors} = useForm(initialFieldValues, true, validate);
-    
+
+    const {values, setValues, handleInputChange,
+            resetForm, errors, setErrors} = useForm(initialFieldValues, true, validate);
+            
     useEffect(() => {
         if (vehicleRental){
             setValues(vehicleRental)
         }
+        
         }, [vehicleRental, setValues])
+    
+  
+        const calculateTotalCost = () => {
+            console.log('values:', values)
 
+            if (values.endDate < values.startDate)
+            return
+            
+            const diffInMonths = values.endDate - values.startDate
+            console.log('diff in months:',  diffInMonths)
+    
+            const diffInHours = Math.floor(diffInMonths / (1000 * 60 * 60));  
+            console.log('diff in hours:',  diffInHours)
+            console.log('values vehicle:',  values.vehicleId)
+    
+            const vehicle = vehicles.find(vehicle => vehicle.id === values.vehicleId)
+            console.log('vehicle:',  vehicle)
+    
+            if (!vehicle)
+            return
+    
+            const totalCost = vehicle.costPerHour * diffInHours
+    
+            setValues({
+                ...values,
+                totalCost
+            })
+          }
+    
     const handleSubmit = (e) => {
         e.preventDefault()
 
@@ -72,18 +103,18 @@ const VehicleRentalForm = (props) => {
                      placeholder="Plaka numarası giriniz"
                      name="vehicleId"
                      value= {values.vehicleId}
-                     onChange= {handleInputChange}
+                     onChange= {(e) => {handleInputChange(e); calculateTotalCost()}}
                      options= {plateNos}
                      error={errors.vehicleId} />
 
-                    <Controls.DatePicker
+                    <Controls.DateTimePicker
                      label="Kira başlama Tarihi"
                      placeholder="Kira başlama tarihi giriniz"
                      name="startDate"
                      value= {values.startDate} 
-                     onChange= {handleInputChange} />         
+                     onChange= {(e) => {handleInputChange(e); calculateTotalCost()}} />         
                 </Grid>
-                <Grid xs={6}>   
+                <Grid item xs={6}>   
                     <Controls.Select
                      label="Müşteri Adı"
                      placeholder="Müşteri adı giriniz"
@@ -93,12 +124,13 @@ const VehicleRentalForm = (props) => {
                      options= {customerFullNames}
                      error={errors.customerId} />
                         
-                    <Controls.DatePicker
+                    <Controls.DateTimePicker
                      label="Kira son Tarihi"
                      placeholder="Kira son tarihi giriniz"
                      name="endDate"
                      value= {values.endDate} 
-                     onChange= {handleInputChange} />  
+                     onChange= {(e) => {handleInputChange(e); calculateTotalCost()}}
+                     error={errors.endDate} />  
 
                     <Controls.Input
                      label="Toplam Tuttar (TL)"

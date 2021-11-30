@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { makeStyles } from '@material-ui/core';
 
-export const useForm = (initialFieldValues, validateOnChange = false, validate) => {
+export const useForm = (initialFieldValues, validateOnChange = false, validate, calculateTotalCost) => {
     const [values, setValues] = useState(initialFieldValues);
     const [errors, setErrors] = useState({});
 
@@ -14,6 +14,10 @@ export const useForm = (initialFieldValues, validateOnChange = false, validate) 
 
         if(validateOnChange){
             validate({[name]: value})
+        }
+
+        if(calculateTotalCost){
+            calculateTotalCost()
         }
    }
    

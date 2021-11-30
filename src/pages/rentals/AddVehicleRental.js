@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
 const AddVehicleRental = () => {
     const classes = useStyles();
     const {vehicleRentals} = useSelector(state => state.vehicleRentals)
-    const  dispatch = useDispatch();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [notify, setNotify] = useState({ isOpen: false, message: '', type: ''});
    
