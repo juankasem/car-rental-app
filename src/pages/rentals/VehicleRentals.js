@@ -9,14 +9,16 @@ import Popup from '../../components/layout/Popup'
 import ConfirmDialog from '../../components/layout/ConfirmDialog'
 import Notification from '../../components/layout/Notification'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     vehicles: {
-      padding: '2rem'
+      padding: theme.spacing(2)
     },
     notFound: {
-        textAlign: 'center'
+        margin: 'auto',
+        padding: theme.spacing(1),
+        fontWeight: 'bold'
     }
-  })
+  }))
 
 const VehicleRentals = () => {
     const classes = useStyles()

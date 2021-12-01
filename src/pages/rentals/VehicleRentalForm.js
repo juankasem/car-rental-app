@@ -23,8 +23,8 @@ const VehicleRentalForm = (props) => {
                           title: vehicle.plateNo + ` (${vehicle.manufacturer} ${vehicle.model})`}))
 
     const customerFullNames = customers.map(customer => 
-    ({value: customer.id, 
-        title: customer.fullName})) 
+                        ({value: customer.id, 
+                            title: customer.fullName})) 
 
     const validate = (fieldValues = values) => {
         let temp = { ...errors }
@@ -51,40 +51,42 @@ const VehicleRentalForm = (props) => {
     const {values, setValues, handleInputChange,
             resetForm, errors, setErrors} = useForm(initialFieldValues, true, validate);
             
-    useEffect(() => {
-        if (vehicleRental){
-            setValues(vehicleRental)
-        }
         
-        }, [vehicleRental, setValues])
-    
+        useEffect(() => {
+            if (vehicleRental){
+                setValues(vehicleRental)
+            }
+            else{
+                setValues({
+                    ...values,
+                    customerId: customers[0]?.id,
+                    vehicleId: vehicles[0]?.id
+                })
+            }
+            }, [vehicleRental, setValues])
+        
   
-        const calculateTotalCost = () => {
-            console.log('values:', values)
+    const calculateTotalCost = () => {
+        console.log('values:', values)
 
-            if (values.endDate < values.startDate)
-            return
-            
-            const diffInMonths = values.endDate - values.startDate
-            console.log('diff in months:',  diffInMonths)
-    
-            const diffInHours = Math.floor(diffInMonths / (1000 * 60 * 60));  
-            console.log('diff in hours:',  diffInHours)
-            console.log('values vehicle:',  values.vehicleId)
-    
-            const vehicle = vehicles.find(vehicle => vehicle.id === values.vehicleId)
-            console.log('vehicle:',  vehicle)
-    
-            if (!vehicle)
-            return
-    
-            const totalCost = vehicle.costPerHour * diffInHours
-    
-            setValues({
-                ...values,
-                totalCost
-            })
-          }
+        if (values.endDate < values.startDate)
+        return
+        
+        const diffInMonths = values.endDate - values.startDate    
+        const diffInHours = Math.floor(diffInMonths / (1000 * 60 * 60));      
+        const vehicle = vehicles.find(vehicle => vehicle.id === values.vehicleId)
+        console.log('vehicle:',  vehicle)
+
+        if (!vehicle)
+        return
+
+        const totalCost = vehicle.costPerHour * diffInHours
+
+        setValues({
+            ...values,
+            totalCost
+        })
+        }
     
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -103,7 +105,7 @@ const VehicleRentalForm = (props) => {
                      placeholder="Plaka numarası giriniz"
                      name="vehicleId"
                      value= {values.vehicleId}
-                     onChange= {(e) => {handleInputChange(e); calculateTotalCost()}}
+                     onChange= {handleInputChange}
                      options= {plateNos}
                      error={errors.vehicleId} />
 
@@ -112,7 +114,14 @@ const VehicleRentalForm = (props) => {
                      placeholder="Kira başlama tarihi giriniz"
                      name="startDate"
                      value= {values.startDate} 
-                     onChange= {(e) => {handleInputChange(e); calculateTotalCost()}} />         
+                     onChange= {handleInputChange} />         
+                  
+                   <div style={{ display: 'flex', justifyContent:'flex-end', marginTop:'0.5rem'}}>
+                        <Controls.Button
+                         text= "Toplam tuttar hesapet"
+                         onClick={calculateTotalCost}
+                         />               
+                    </div> 
                 </Grid>
                 <Grid item xs={6}>   
                     <Controls.Select
@@ -129,7 +138,7 @@ const VehicleRentalForm = (props) => {
                      placeholder="Kira son tarihi giriniz"
                      name="endDate"
                      value= {values.endDate} 
-                     onChange= {(e) => {handleInputChange(e); calculateTotalCost()}}
+                     onChange= {handleInputChange}
                      error={errors.endDate} />  
 
                     <Controls.Input
@@ -139,7 +148,7 @@ const VehicleRentalForm = (props) => {
                      placeholder="Toplam tuttarı adı giriniz"
                      name="totalCost"
                      value= {values.totalCost}
-                     onChange= {handleInputChange} />    
+                     onChange= {handleInputChange} />  
                 </Grid>
                    <div style={{margin: 'auto'}}>
                         <Controls.Button
